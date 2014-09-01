@@ -21,7 +21,7 @@ RUN yum -y install system-config-users
 
 RUN echo "vnc1 5901/tcp" >> /etc/services
 ADD vnc /etc/xinetd.d/vnc
-RUN sed -i 's$:0 local /usr/bin/X :0$:0 local /usr/bin/Xvnc :0 -SecurityTypes None$' /etc/X11/xdm/Xservers  
+RUN sed -i 's$:0 local /usr/bin/X :0$:0 local /usr/bin/Xvnc :0 -SecurityTypes None -desktop CentOS6 DisconnectClients=0$' /etc/X11/xdm/Xservers  
 RUN sed -i "s/DisplayManager.requestPort:\t0/DisplayManager.requestPort:   177/" /etc/X11/xdm/xdm-config
 RUN echo '*' >> /etc/X11/xdm/Xaccess
 
