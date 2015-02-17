@@ -14,13 +14,21 @@ RUN yum -y install xorg-x11-fonts-ISO8859-1-75dpi.noarch xorg-x11-fonts-ISO8859-
 RUN yum -y install xterm xorg-x11-utils
 RUN yum -y install gnome-panel gnome-terminal gnome-applets nautilus 
 RUN yum -y install firefox libreoffice thunderbird
-RUN yum -y install tigervnc-server xinetd xorg-x11-xdm
+RUN yum -y install xinetd xorg-x11-xdm
 RUN yum -y install vlgothic-fonts vlgothic-p-fonts ipa-gothic-fonts ipa-mincho-fonts ipa-pgothic-fonts ipa-pmincho-fonts
 RUN yum -y install system-config-users
 RUN yum -y install emacs
 RUN yum -y install nautilus-open-terminal
+RUN yum -y install system-config-language system-config-date
+RUN yum -y install system-gnome-theme system-icon-theme 
+RUN yum -y install centos-indexhtml
+RUN yum -y install wget tar
 ADD rpms /src/rpms
 RUN yum -y install /src/rpms/*.rpm
+
+RUN cd /src ; wget https://bintray.com/artifact/download/tigervnc/stable/tigervnc-Linux-x86_64-1.4.2.tar.gz
+RUN cd / ; tar --no-same-owner -xf src/tigervnc-Linux-x86_64-1.4.2.tar.gz
+
 
 RUN echo "vnc1 5901/tcp" >> /etc/services
 ADD vnc /etc/xinetd.d/vnc
